@@ -13,8 +13,16 @@ class App extends Component {
       {id: '004', name: '敲代码', done: false}
     ]
   }
+  componentDidMount() {
+    const todos = JSON.parse(window.localStorage.getItem('todos'))
+    this.setState(()=>{
+      return {todos}
+    })
+  }
+
   addTodo = (todoObj) => {
     let newTodos = [todoObj, ...this.state.todos]
+    window.localStorage.setItem('todos',JSON.stringify(newTodos))
     this.setState(() => {
       return {todos: newTodos}
     })
@@ -28,6 +36,7 @@ class App extends Component {
       }
       return item
     })
+    window.localStorage.setItem('todos',JSON.stringify(newTodos))
     this.setState(() => {
       return {todos: newTodos}
     })
@@ -36,6 +45,7 @@ class App extends Component {
     const newTodos = this.state.todos.filter(item => {
       return item.id !== id
     })
+    window.localStorage.setItem('todos',JSON.stringify(newTodos))
     this.setState(() => {
       return {todos: newTodos}
     })
@@ -44,6 +54,7 @@ class App extends Component {
     const newTodos = this.state.todos.filter(item => {
       return !item.done
     })
+    window.localStorage.setItem('todos',JSON.stringify(newTodos))
     this.setState(() => {
       return {todos: newTodos}
     })
@@ -52,6 +63,7 @@ class App extends Component {
     const newTodos = this.state.todos.map(item => {
       return {...item, done}
     })
+    window.localStorage.setItem('todos',JSON.stringify(newTodos))
     this.setState(() => {
       return {todos: newTodos}
     })
